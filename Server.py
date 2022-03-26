@@ -1,7 +1,4 @@
-# To run this program, the file ``ssh_host_key`` must exist with an SSH
-# private key in it to use as a server host key. An SSH host certificate
-# can optionally be provided in the file ``ssh_host_key-cert.pub``.
-
+import os, time
 import asyncio, asyncssh, crypt, sys
 from typing import Optional
 
@@ -17,7 +14,8 @@ async def handle_client(process: asyncssh.SSHServerProcess) -> None:
     async for line in process.stdin:
         line = line.rstrip('\n')
         print(line)
-
+        os.system('curl --request POST https://api.pushcut.io/QWz5_f5mzkfk6pHuIfO4y/notifications/Seizure')
+        time.sleep(10)
 class MySSHServer(asyncssh.SSHServer):
     def connection_made(self, conn: asyncssh.SSHServerConnection) -> None:
         print('SSH connection received from %s.' %
